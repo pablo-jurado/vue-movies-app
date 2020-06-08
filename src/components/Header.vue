@@ -3,8 +3,7 @@
     <h1>Let's search for movies!</h1>
     <input v-model="searchValue" />
     <button v-on:click="search">Search</button>
-    <p v-if="totalResults">Results found: {{ totalResults }}</p>
-    <p v-if="error !== '' ">{{ error }}</p>
+    <p v-if="error">Results not found</p>
     <p v-if="loading">Loading...</p>
   </div>
 </template>
@@ -114,22 +113,25 @@ export default {
   data: function() {
     return {
       searchValue: "",
-      movies: [],
-      totalResults: null,
       loading: false,
-      error: ""
+      error: false
     };
   },
   methods: {
+    resetData: function() {
+      this.loading = false;
+      this.error = false;
+    },
     search: function() {
+      this.resetData();
       this.loading = true;
+
       getMovies().then(data => {
         this.loading = false;
         if (data.Response === "True") {
-          this.totalResults = data.totalResults;
-          this.movies = data.Search;
+          this.$emit("searchDone", data.Search);
         } else {
-          this.error = "Results not found";
+          this.error = true;
         }
       });
       this.searchValue = "";

@@ -1,16 +1,29 @@
 <template>
   <div id="app">
-    <Header />
+    <Header v-on:searchDone="updateMovies" />
+    <MovieList v-bind:movies="movies" />
   </div>
 </template>
 
 <script>
 import Header from "./components/Header.vue";
+import MovieList from "./components/MovieList.vue";
 
 export default {
   name: "App",
   components: {
-    Header
+    Header,
+    MovieList
+  },
+  data() {
+    return {
+      movies: []
+    };
+  },
+  methods: {
+    updateMovies(movies) {
+      this.movies = movies;
+    }
   }
 };
 </script>
