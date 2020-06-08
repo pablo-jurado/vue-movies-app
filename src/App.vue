@@ -13,18 +13,18 @@ export default {
   name: "App",
   components: {
     Header,
-    MovieList
+    MovieList,
   },
   data() {
     return {
-      movies: []
+      movies: [],
     };
   },
   methods: {
     updateMovies(movies) {
       this.movies = movies;
-    }
-  }
+    },
+  },
 };
 </script>
 
