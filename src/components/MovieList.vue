@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="movies-container">
     <MovieCard
       v-for="item in movies"
       v-bind:key="item.imdbID"
@@ -22,3 +22,9 @@ export default {
   }
 };
 </script>
+<style scoped>
+.movies-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+</style>
