@@ -16,6 +16,7 @@
 
 <script>
 import MovieCard from "./MovieCard.vue";
+import { UPDATE_PAGE_NUMBER } from "@/actions";
 
 export default {
   components: {
@@ -35,7 +36,7 @@ export default {
 
     const callback = (entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting) this.$store.commit("updatePageNumber");
+        if (entry.isIntersecting) this.$store.dispatch(UPDATE_PAGE_NUMBER);
       });
     };
 

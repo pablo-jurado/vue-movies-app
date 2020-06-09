@@ -19,7 +19,7 @@
 <script>
 // import { searchMovies } from "@/utils";
 import { fakeSearchMovies as searchMovies } from "@/utils";
-
+import { UPDATE_MOVIES, RESET_MOVIES } from "@/actions";
 export default {
   data: function() {
     return {
@@ -38,8 +38,8 @@ export default {
 
       if (data.Response === "True") {
         const moviesArray = data.Search;
-        this.$store.commit("resetMovies");
-        this.$store.commit("updateMovies", moviesArray);
+        this.$store.dispatch(RESET_MOVIES);
+        this.$store.dispatch(UPDATE_MOVIES, moviesArray);
       } else {
         this.error = true;
       }
