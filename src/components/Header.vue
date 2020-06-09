@@ -38,7 +38,8 @@ export default {
 
       if (data.Response === "True") {
         const moviesArray = data.Search;
-        this.$emit("searchDone", moviesArray);
+        this.$store.commit("resetMovies");
+        this.$store.commit("updateMovies", moviesArray);
       } else {
         this.error = true;
       }

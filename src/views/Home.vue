@@ -1,29 +1,20 @@
 <template>
   <div class="home">
-    <Header v-on:searchDone="updateMovies" />
-    <MovieList v-bind:movies="movies" />
+    <Header />
+    <MovieList v-bind:movies="$store.state.movies" />
   </div>
 </template>
 
 <script>
 import Header from "@/components/Header.vue";
 import MovieList from "@/components/MovieList.vue";
-
+import store from "@/store";
 export default {
   name: "Home",
+  store,
   components: {
     Header,
     MovieList,
-  },
-  data() {
-    return {
-      movies: [],
-    };
-  },
-  methods: {
-    updateMovies(movies) {
-      this.movies = movies;
-    },
   },
 };
 </script>
