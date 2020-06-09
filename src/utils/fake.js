@@ -52,7 +52,7 @@ const fakeData = {
     {
       Title: "Jack Reacher: Never Go Back",
       Year: "2016",
-      imdbID: "tt3393786",
+      imdbID: "tt3393785",
       Type: "movie",
       Poster:
         "https://m.media-amazon.com/images/M/MV5BODQ3ODQ3NDI4NV5BMl5BanBnXkFtZTgwMDY1Mzk5OTE@._V1_SX300.jpg",
@@ -60,7 +60,7 @@ const fakeData = {
     {
       Title: "Jay and Silent Bob Strike Back",
       Year: "2001",
-      imdbID: "tt0261392",
+      imdbID: "tt0261382",
       Type: "movie",
       Poster:
         "https://m.media-amazon.com/images/M/MV5BY2EyYWEwZmQtZWU0Yy00M2Y3LThiZTktOTQxZDUxY2ZjOTYwXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg",
@@ -68,7 +68,7 @@ const fakeData = {
     {
       Title: "The Way Way Back",
       Year: "2013",
-      imdbID: "tt1727388",
+      imdbID: "tt1727381",
       Type: "movie",
       Poster:
         "https://m.media-amazon.com/images/M/MV5BMTkzNDg3MTIyMF5BMl5BanBnXkFtZTcwOTAwNDc1MQ@@._V1_SX300.jpg",
