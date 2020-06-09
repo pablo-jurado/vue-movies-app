@@ -18,7 +18,7 @@
 
 <script>
 // import { searchMovies } from "@/utils";
-import { fakeSearchMovies } from "@/utils";
+import { fakeSearchMovies as searchMovies } from "@/utils";
 
 export default {
   data: function() {
@@ -33,7 +33,7 @@ export default {
       this.error = false;
       this.loading = true;
 
-      const data = await fakeSearchMovies(this.searchValue);
+      const data = await searchMovies(this.searchValue);
       this.loading = false;
 
       if (data.Response === "True") {
