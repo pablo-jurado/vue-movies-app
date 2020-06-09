@@ -11,3 +11,8 @@ export function searchMovies(searchValue) {
   const api = `${API_URL}&s=${searchValue}`;
   return get(api);
 }
+
+export function getMovieById(id) {
+  const api = `${API_URL}&i=${id}`;
+  return get(api);
+}
