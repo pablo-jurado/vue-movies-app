@@ -1,8 +1,8 @@
 <template>
-  <div class="movies-container">
+  <div class="flex flex-wrap">
     <MovieCard
       v-for="item in movies"
-      v-bind:key="item.imdbID"
+      :key="item.imdbID"
       :title="item.Title"
       :year="item.Year"
       :src="item.Poster"
@@ -15,16 +15,10 @@ import MovieCard from "./MovieCard.vue";
 
 export default {
   components: {
-    MovieCard
+    MovieCard,
   },
   props: {
-    movies: Array
-  }
+    movies: Array,
+  },
 };
 </script>
-<style scoped>
-.movies-container {
-  display: flex;
-  flex-wrap: wrap;
-}
-</style>

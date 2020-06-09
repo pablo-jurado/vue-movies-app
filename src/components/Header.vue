@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Let's search for movies!</h1>
+    <h1 class="text-3xl">Let's search for movies!</h1>
     <input
       class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow m-4"
       v-model="searchValue"
@@ -55,13 +55,3 @@ export default {
   },
 };
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-img {
-  height: 1.1rem;
-}
-</style>
