@@ -2,7 +2,7 @@
   <div>
     <div class="flex">
       <router-link
-        class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded-full shadow mx-4"
+        class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded-full shadow m-4"
         to="/"
       >Back</router-link>
     </div>

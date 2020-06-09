@@ -1,7 +1,8 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
+    <div id="nav" v-if="$route.name !== 'Movie'">
+      <router-link to="/">Home</router-link>&nbsp;
+      |
       <router-link to="/favorites">Favorites</router-link>
     </div>
     <router-view />
