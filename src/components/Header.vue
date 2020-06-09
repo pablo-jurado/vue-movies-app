@@ -17,13 +17,8 @@
 </template>
 
 <script>
-function getMovies(value) {
-  const key = process.env.VUE_APP_API_KEY;
-  const api = `http://www.omdbapi.com/?apikey=${key}&s=${value}`;
-  return fetch(api)
-    .then((response) => response.json())
-    .then((data) => data);
-}
+// import { searchMovies } from "@/utils";
+import { fakeSearchMovies } from "@/utils";
 
 export default {
   data: function() {
@@ -34,22 +29,19 @@ export default {
     };
   },
   methods: {
-    resetData: function() {
-      this.loading = false;
+    search: async function() {
       this.error = false;
-    },
-    search: function() {
-      this.resetData();
       this.loading = true;
 
-      getMovies(this.searchValue).then((data) => {
-        this.loading = false;
-        if (data.Response === "True") {
-          this.$emit("searchDone", data.Search);
-        } else {
-          this.error = true;
-        }
-      });
+      const data = await fakeSearchMovies(this.searchValue);
+      this.loading = false;
+
+      if (data.Response === "True") {
+        const moviesArray = data.Search;
+        this.$emit("searchDone", moviesArray);
+      } else {
+        this.error = true;
+      }
       this.searchValue = "";
     },
   },
