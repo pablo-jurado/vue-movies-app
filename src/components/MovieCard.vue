@@ -7,6 +7,7 @@
       <p class="text-gray-700 text-base">
         {{ year }}
       </p>
+      <router-link :to="`/movie/${id}`">Details</router-link>
     </div>
   </div>
 </template>
@@ -14,6 +15,7 @@
 <script>
 export default {
   props: {
+    id: String,
     title: String,
     year: String,
     src: String,
