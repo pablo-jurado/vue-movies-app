@@ -17,6 +17,7 @@
 </template>
 
 <script>
+<<<<<<< HEAD
 const fakeData = {
   Search: [
     {
@@ -115,6 +116,14 @@ function getMovies() {
       resolve(fakeData);
     }, 1000);
   });
+=======
+function getMovies(value) {
+  const key = process.env.VUE_APP_API_KEY;
+  const api = `http://www.omdbapi.com/?apikey=${key}&s=${value}`;
+  return fetch(api)
+    .then((response) => response.json())
+    .then((data) => data);
+>>>>>>> 410b006... add env variable
 }
 
 export default {
@@ -134,7 +143,11 @@ export default {
       this.resetData();
       this.loading = true;
 
+<<<<<<< HEAD
       getMovies().then((data) => {
+=======
+      getMovies(this.searchValue).then((data) => {
+>>>>>>> 410b006... add env variable
         this.loading = false;
         if (data.Response === "True") {
           this.$emit("searchDone", data.Search);
