@@ -15,6 +15,7 @@
       >
       <button
         class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 m-2 border border-gray-400 rounded-full shadow"
+        @click="addToFavorites"
       >
         Add to Favorites
       </button>
@@ -23,12 +24,23 @@
 </template>
 
 <script>
+import { ADD_TO_FAVORITES } from "@/actions";
 export default {
   props: {
     id: String,
     title: String,
     year: String,
     src: String,
+  },
+  methods: {
+    addToFavorites: function() {
+      const movie = {
+        id: this.$props.id,
+        title: this.$props.title,
+        poster: this.$props.src,
+      };
+      this.$store.dispatch(ADD_TO_FAVORITES, movie);
+    },
   },
 };
 </script>
