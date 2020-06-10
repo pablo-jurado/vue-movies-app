@@ -1,9 +1,12 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
+import { searchMovies } from "@/utils";
+
 import {
-  UPDATE_MOVIES,
-  RESET_MOVIES,
+  UPDATE_SEARCH_VALUE,
+  FETCH_MOVIES,
+  RESET_STATE,
   UPDATE_PAGE_NUMBER,
   ADD_TO_FAVORITES,
   DELETE_FROM_FAVORITES,
@@ -13,13 +16,17 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
   state: {
+    searchValue: "",
     movies: [],
-    pageNumber: 0,
+    pageNumber: 1,
     favorites: [],
   },
   mutations: {
-    updateMovies(state, moviesArray) {
-      state.movies.push(...moviesArray);
+    updateSearchValue(state, value) {
+      state.searchValue = value;
+    },
+    fetchMovies(state, moviesArray) {
+      state.movies = [...state.movies, ...moviesArray];
     },
     addToFavorites(state, movie) {
       const alreadyInFavorites = state.favorites.find((m) => m.id === movie.id);
@@ -32,13 +39,24 @@ const store = new Vuex.Store({
     updatePageNumber(state) {
       state.pageNumber++;
     },
-    resetMovies(state) {
+    resetState(state) {
+      state.searchValue = "";
       state.movies = [];
+      state.pageNumber = 1;
     },
   },
   actions: {
-    updateMovies(context, moviesArray) {
-      context.commit(UPDATE_MOVIES, moviesArray);
+    updateSearchValue(context, value) {
+      context.commit(UPDATE_SEARCH_VALUE, value);
+    },
+    async fetchMovies(context) {
+      const data = await searchMovies(
+        context.state.searchValue,
+        context.state.pageNumber
+      );
+      if (data.Response === "True") {
+        context.commit(FETCH_MOVIES, data.Search);
+      }
     },
     addToFavorites(context, movie) {
       context.commit(ADD_TO_FAVORITES, movie);
@@ -49,8 +67,8 @@ const store = new Vuex.Store({
     updatePageNumber(context) {
       context.commit(UPDATE_PAGE_NUMBER);
     },
-    resetMovies(context) {
-      context.commit(RESET_MOVIES);
+    resetState(context) {
+      context.commit(RESET_STATE);
     },
   },
 });

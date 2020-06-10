@@ -7,8 +7,8 @@ export async function get(endPoint) {
   return data;
 }
 
-export function searchMovies(searchValue) {
-  const api = `${API_URL}&s=${searchValue}`;
+export function searchMovies(searchValue, pageNumber) {
+  const api = `${API_URL}&s=${searchValue}&page=${pageNumber}`;
   return get(api);
 }
 

@@ -8,43 +8,28 @@
     <button
       class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
       v-on:click="search"
-    >
-      Search
-    </button>
-    <p v-if="error">Results not found</p>
-    <p v-if="loading">Loading...</p>
+    >Search</button>
+    <!-- <p v-if="error">Results not found</p>
+    <p v-if="loading">Loading...</p>-->
   </div>
 </template>
 
 <script>
-// import { searchMovies } from "@/utils";
-import { fakeSearchMovies as searchMovies } from "@/utils";
-import { UPDATE_MOVIES, RESET_MOVIES } from "@/actions";
+import { UPDATE_SEARCH_VALUE, FETCH_MOVIES, RESET_STATE } from "@/actions";
 export default {
   data: function() {
     return {
       searchValue: "",
       loading: false,
-      error: false,
+      error: false
     };
   },
   methods: {
-    search: async function() {
-      this.error = false;
-      this.loading = true;
-
-      const data = await searchMovies(this.searchValue);
-      this.loading = false;
-
-      if (data.Response === "True") {
-        const moviesArray = data.Search;
-        this.$store.dispatch(RESET_MOVIES);
-        this.$store.dispatch(UPDATE_MOVIES, moviesArray);
-      } else {
-        this.error = true;
-      }
-      this.searchValue = "";
-    },
-  },
+    search: function() {
+      this.$store.dispatch(RESET_STATE);
+      this.$store.dispatch(UPDATE_SEARCH_VALUE, this.searchValue);
+      this.$store.dispatch(FETCH_MOVIES);
+    }
+  }
 };
 </script>

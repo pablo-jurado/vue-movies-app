@@ -16,27 +16,30 @@
 
 <script>
 import MovieCard from "./MovieCard.vue";
-import { UPDATE_PAGE_NUMBER } from "@/actions";
+import { UPDATE_PAGE_NUMBER, FETCH_MOVIES } from "@/actions";
 
 export default {
   components: {
-    MovieCard,
+    MovieCard
   },
   data() {
     return {
-      observer: null,
+      observer: null
     };
   },
   mounted() {
     const options = {
       root: null,
       rootMargin: "0px",
-      threshold: 0,
+      threshold: 0
     };
 
-    const callback = (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) this.$store.dispatch(UPDATE_PAGE_NUMBER);
+    const callback = entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          this.$store.dispatch(UPDATE_PAGE_NUMBER);
+          this.$store.dispatch(FETCH_MOVIES);
+        }
       });
     };
 
@@ -45,7 +48,7 @@ export default {
     this.observer = observer;
   },
   props: {
-    movies: Array,
-  },
+    movies: Array
+  }
 };
 </script>
