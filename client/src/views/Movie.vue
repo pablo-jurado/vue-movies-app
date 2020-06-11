@@ -6,39 +6,40 @@
         to="/"
       >Back</router-link>
     </div>
-    <div v-if="error">Something whent wrong...</div>
-    <div v-if="movie">
-      <h1 class="text-2xl font-bold m-4">{{ movie.Title }}</h1>
+    <div v-if="$apollo.loading">Loading...</div>
+    <div v-if="!$apollo.loading && !movieById">Something whent wrong...</div>
+    <div v-if="movieById">
+      <h1 class="text-2xl font-bold m-4">{{ movieById.Title }}</h1>
       <div class="flex w-7/12 m-auto">
-        <img class="rounded shadow-md" :src="movie.Poster" alt />
+        <img class="rounded shadow-md" :src="movieById.Poster" alt />
         <div class="ml-4 text-left">
           <p class="my-2">
             <strong>Year:</strong>
-            {{movie.Year}}
+            {{movieById.Year}}
           </p>
           <p class="my-2">
             <strong>Genre:</strong>
-            {{movie.Genre}}
+            {{movieById.Genre}}
           </p>
           <p class="my-2">
             <strong>Director:</strong>
-            {{movie.Director}}
+            {{movieById.Director}}
           </p>
           <p class="my-2">
             <strong>Actors:</strong>
-            {{ movie.Actors }}
+            {{ movieById.Actors }}
           </p>
           <p class="my-2">
             <strong>Country:</strong>
-            {{ movie.Country }}
+            {{ movieById.Country }}
           </p>
           <p class="my-2">
             <strong>Language:</strong>
-            {{ movie.Language }}
+            {{ movieById.Language }}
           </p>
           <p class="my-2">
             <strong>Awards:</strong>
-            {{ movie.Awards }}
+            {{ movieById.Awards }}
           </p>
         </div>
       </div>
@@ -47,25 +48,39 @@
 </template>
 
 <script>
-import { getMovieById } from "../utils";
+import qgl from "graphql-tag";
 
 export default {
   name: "Movie",
-
   data() {
     return {
-      movie: null,
-      error: false
+      movieById: ""
     };
   },
-
-  async created() {
-    const id = this.$route.params.id;
-    const movieData = await getMovieById(id);
-    if (movieData.Response === "True") {
-      this.movie = movieData;
-    } else {
-      this.error = true;
+  create() {
+    console.log("created!!!");
+    console.log(this);
+  },
+  apollo: {
+    movieById() {
+      return {
+        query: qgl`query movieById($id: ID!) {
+          movieById(id: $id) {
+            Title
+            Poster
+            Year
+            Genre
+            Director
+            Actors
+            Country
+            Language
+            Awards
+          }
+        }`,
+        variables: {
+          id: this.$route.params.id
+        }
+      };
     }
   }
 };
