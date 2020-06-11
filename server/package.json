@@ -7,10 +7,13 @@
   "license": "MIT",
   "scripts": {
     "start": "./node_modules/nodemon/bin/nodemon.js src/index.js --exec 'npm run lint && node'",
-    "lint": "./node_modules/.bin/eslint **/*.js"
+    "lint": "./node_modules/.bin/eslint src/**/*.js"
   },
   "devDependencies": {
     "eslint": "^7.2.0",
     "nodemon": "^2.0.4"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
   }
 }
