@@ -1,11 +1,6 @@
 const { gql } = require("apollo-server-express");
 
 const typeDefs = gql`
-  type Book {
-    title: String
-    author: String
-  }
-
   type Movie {
     Title: String
     Year: String
@@ -36,7 +31,8 @@ const typeDefs = gql`
 
   type Query {
     movies: [Movie]
-    movie(id: ID!): Movie
+    movieById(id: ID!): Movie
+    searchMovies(value: String!, page: Int): [Movie]
   }
 `;
 
