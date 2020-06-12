@@ -30,7 +30,6 @@ const typeDefs = gql`
   }
 
   type Query {
-    movies: [Movie]
     movieById(id: ID!): Movie
     searchMovies(value: String!, page: Int): [Movie]
   }
