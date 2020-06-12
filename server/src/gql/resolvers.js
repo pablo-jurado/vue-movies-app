@@ -1,7 +1,7 @@
 const axios = require("axios");
 const { API_URL } = require("../config");
 
-const movieByIdResolver = async (_, args) => {
+const movieById = async (_, args) => {
   const movieId = args.id;
   try {
     const response = await axios.get(API_URL + "&i=" + movieId);
@@ -17,7 +17,12 @@ const movieByIdResolver = async (_, args) => {
   }
 };
 
-const searchMoviesResolver = async (_, args) => {
+const getAllUsers = (_, __, context) => {
+  const knex = context.dataSources.db;
+  return knex.select("*").from("users");
+};
+
+const searchMovies = async (_, args) => {
   const searchValue = args.value;
   const page = args.page || 1;
   const api = `${API_URL}&s=${searchValue}&page=${page}`;
@@ -39,8 +44,9 @@ const searchMoviesResolver = async (_, args) => {
 
 const resolvers = {
   Query: {
-    movieById: movieByIdResolver,
-    searchMovies: searchMoviesResolver,
+    movieById,
+    searchMovies,
+    getAllUsers,
   },
 };
 
