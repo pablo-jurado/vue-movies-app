@@ -1,12 +1,13 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
-import { searchMovies } from "@/utils";
+import { apolloClient } from "./vue-apollo";
+import gql from "graphql-tag";
 
 import {
   UPDATE_SEARCH_VALUE,
-  FETCH_MOVIES,
   RESET_STATE,
+  FETCH_MOVIES,
   UPDATE_PAGE_NUMBER,
   ADD_TO_FAVORITES,
   DELETE_FROM_FAVORITES,
@@ -50,12 +51,27 @@ const store = new Vuex.Store({
       context.commit(UPDATE_SEARCH_VALUE, value);
     },
     async fetchMovies(context) {
-      const data = await searchMovies(
-        context.state.searchValue,
-        context.state.pageNumber
-      );
-      if (data.Response === "True") {
-        context.commit(FETCH_MOVIES, data.Search);
+      const { searchValue, pageNumber } = context.state;
+      const response = await apolloClient.query({
+        query: gql`
+          query searchMovies($value: String!, $page: Int) {
+            searchMovies(value: $value, page: $page) {
+              imdbID
+              Title
+              Year
+              Poster
+            }
+          }
+        `,
+        variables: {
+          value: searchValue,
+          page: pageNumber,
+        },
+      });
+
+      if (response && response.data && response.data.searchMovies) {
+        const movies = response.data.searchMovies;
+        context.commit(FETCH_MOVIES, movies);
       }
     },
     addToFavorites(context, movie) {

@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import qgl from "graphql-tag";
+import gql from "graphql-tag";
 
 export default {
   name: "Movie",
@@ -64,19 +64,21 @@ export default {
   apollo: {
     movieById() {
       return {
-        query: qgl`query movieById($id: ID!) {
-          movieById(id: $id) {
-            Title
-            Poster
-            Year
-            Genre
-            Director
-            Actors
-            Country
-            Language
-            Awards
+        query: gql`
+          query movieById($id: ID!) {
+            movieById(id: $id) {
+              Title
+              Poster
+              Year
+              Genre
+              Director
+              Actors
+              Country
+              Language
+              Awards
+            }
           }
-        }`,
+        `,
         variables: {
           id: this.$route.params.id
         }
