@@ -1,17 +1,15 @@
 <template>
-  <div>
+  <form v-on:submit="search">
     <h1 class="text-3xl">Let's search for movies!</h1>
     <input
       class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow m-4"
       v-model="searchValue"
     />
     <button
+      type="submit"
       class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
-      v-on:click="search"
     >Search</button>
-    <!-- <p v-if="error">Results not found</p>
-    <p v-if="loading">Loading...</p>-->
-  </div>
+  </form>
 </template>
 
 <script>
@@ -25,7 +23,8 @@ export default {
     };
   },
   methods: {
-    search: function() {
+    search: function(e) {
+      e.preventDefault();
       this.$store.dispatch(RESET_STATE);
       this.$store.dispatch(UPDATE_SEARCH_VALUE, this.searchValue);
       this.$store.dispatch(FETCH_MOVIES);

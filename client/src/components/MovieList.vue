@@ -10,7 +10,7 @@
         :src="item.Poster"
       />
     </div>
-    <div id="scroll-track" ref="scroll">Scroll</div>
+    <div id="scroll-track" ref="scroll">Loading...</div>
   </div>
 </template>
 
